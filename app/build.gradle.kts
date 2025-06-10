@@ -3,7 +3,7 @@ plugins {
     application
     id("com.github.ben-manes.versions") version "0.52.0"
     id("com.github.johnrengelman.shadow") version "7.1.2"
-    id("org.sonarqube") version "6.0.1.5171"
+    id("org.sonarqube") version "6.2.0.5505"
     jacoco
     checkstyle
 }
