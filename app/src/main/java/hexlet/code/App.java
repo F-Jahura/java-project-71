@@ -6,23 +6,19 @@ import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
 import java.io.File;
-import java.math.BigInteger;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.security.MessageDigest;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.concurrent.Callable;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 
 @Command(name = "gendiff", mixinStandardHelpOptions = true,
         description = "Compares two configuration files and shows a difference.")
 public class App implements Callable<Integer> {
-    public static void main(String[] args) throws Exception{
-        System.out.printf("Hello World!\n");
+    public static void main(String[] args) throws Exception {
+        //System.out.printf("Hello World!\n");
 
         int exitCode = new CommandLine(new App()).execute(args);
         System.exit(exitCode);
@@ -42,20 +38,39 @@ public class App implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
-        ObjectMapper jasonMapper = new ObjectMapper();
-        ObjectMapper yamlMapper = new ObjectMapper(new YAMLFactory());
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, Object> data1 = objectMapper.readValue(filepath1, new TypeReference<Map<String, Object>>() { });
+        Map<String, Object> data2 = objectMapper.readValue(filepath2, new TypeReference<Map<String, Object>>() { });
 
-        Map<String, Object> data1 = jasonMapper.readValue(filepath1, Map.class);
-        Map<String, Object> data2 = jasonMapper.readValue(filepath2, Map.class);
+        TreeMap<String, String> commonData = new TreeMap<>();
 
-        // Преобразование в YAML
-        String yaml1 = yamlMapper.writeValueAsString(data1);
-        String yaml2 = yamlMapper.writeValueAsString(data2);
+        for (Map.Entry<String, Object> entry : data1.entrySet()) {
+            if (data2.containsKey(entry.getKey())) {
+                if (!entry.getValue().equals(data2.get(entry.getKey()))) {
+                    commonData.put(entry.getKey(), String.format("  - %s: %s\n  + %s: %s",
+                            entry.getKey(), entry.getValue(), entry.getKey(), data2.get(entry.getKey())));
+                } else {
+                    commonData.put(entry.getKey(), String.format("    %s: %s", entry.getKey(), entry.getValue()));
+                }
+            } else {
+                commonData.put(entry.getKey(), String.format("  - %s: %s", entry.getKey(), entry.getValue()));
+            }
+        }
 
-        System.out.println(yaml1);
-        System.out.println(yaml2);
+        for (Map.Entry<String, Object> entry : data2.entrySet()) {
+            if (!data1.containsKey(entry.getKey())) {
+                commonData.put(entry.getKey(), String.format("  + %s: %s", entry.getKey(), entry.getValue()));
+            }
+        }
+
+
+        System.out.println("{");
+        for (String value : commonData.values()) {
+            System.out.println(value);
+        }
+
+        System.out.println("}");
 
         return 0;
     }
 }
-
