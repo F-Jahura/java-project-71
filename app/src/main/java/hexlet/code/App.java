@@ -13,7 +13,6 @@ import java.util.concurrent.Callable;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-
 @Command(name = "gendiff", mixinStandardHelpOptions = true,
         description = "Compares two configuration files and shows a difference.")
 public class App implements Callable<Integer> {
@@ -24,7 +23,6 @@ public class App implements Callable<Integer> {
         System.exit(exitCode);
 
         new CommandLine(new App()).parseArgs(args);
-
     }
 
     @Option(names = { "-f", "--format" }, paramLabel = "format", description = "output format [default: stylish]")
