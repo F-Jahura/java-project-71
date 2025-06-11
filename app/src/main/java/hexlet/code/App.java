@@ -23,6 +23,8 @@ public class App implements Callable<Integer> {
         System.exit(exitCode);
 
         new CommandLine(new App()).parseArgs(args);
+
+
     }
 
     @Option(names = { "-f", "--format" }, paramLabel = "format", description = "output format [default: stylish]")
@@ -45,28 +47,26 @@ public class App implements Callable<Integer> {
         for (Map.Entry<String, Object> entry : data1.entrySet()) {
             if (data2.containsKey(entry.getKey())) {
                 if (!entry.getValue().equals(data2.get(entry.getKey()))) {
-                    commonData.put(entry.getKey(), String.format("  - %s: %s\n  + %s: %s",
+                    commonData.put(entry.getKey(), String.format("- %s: %s\n+ %s: %s",
                             entry.getKey(), entry.getValue(), entry.getKey(), data2.get(entry.getKey())));
                 } else {
-                    commonData.put(entry.getKey(), String.format("    %s: %s", entry.getKey(), entry.getValue()));
+                    commonData.put(entry.getKey(), String.format("  %s: %s", entry.getKey(), entry.getValue()));
                 }
             } else {
-                commonData.put(entry.getKey(), String.format("  - %s: %s", entry.getKey(), entry.getValue()));
+                commonData.put(entry.getKey(), String.format("- %s: %s", entry.getKey(), entry.getValue()));
             }
         }
 
         for (Map.Entry<String, Object> entry : data2.entrySet()) {
             if (!data1.containsKey(entry.getKey())) {
-                commonData.put(entry.getKey(), String.format("  + %s: %s", entry.getKey(), entry.getValue()));
+                commonData.put(entry.getKey(), String.format("+ %s: %s", entry.getKey(), entry.getValue()));
             }
         }
-
 
         System.out.println("{");
         for (String value : commonData.values()) {
             System.out.println(value);
         }
-
         System.out.println("}");
 
         return 0;
