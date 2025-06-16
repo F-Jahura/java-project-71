@@ -1,5 +1,6 @@
 package hexlet.code;
 
+import org.apache.commons.io.FilenameUtils;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
@@ -10,12 +11,12 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.Callable;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 @Command(name = "gendiff", mixinStandardHelpOptions = true,
         description = "Compares two configuration files and shows a difference.")
 public class App implements Callable<Integer> {
+    public App() throws Exception {
+    }
+
     public static void main(String[] args) throws Exception {
         //System.out.printf("Hello World!\n");
 
@@ -38,9 +39,11 @@ public class App implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
-        ObjectMapper objectMapper = new ObjectMapper();
-        Map<String, Object> data1 = objectMapper.readValue(filepath1, new TypeReference<Map<String, Object>>() { });
-        Map<String, Object> data2 = objectMapper.readValue(filepath2, new TypeReference<Map<String, Object>>() { });
+        String type = FilenameUtils.getExtension(filepath1.toString() + filepath2.toString());
+
+        Map<String, Object> data1 = Parser.parsing(filepath1, type);
+        Map<String, Object> data2 = Parser.parsing(filepath2, type);
+
 
         TreeMap<String, String> commonData = new TreeMap<>();
 
