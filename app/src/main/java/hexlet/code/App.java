@@ -7,9 +7,7 @@ import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
 import java.io.File;
-//import java.util.List;
 import java.util.Map;
-//import java.util.TreeMap;
 import java.util.concurrent.Callable;
 
 @Command(name = "gendiff", mixinStandardHelpOptions = true,
@@ -19,12 +17,11 @@ public class App implements Callable<Integer> {
         //System.out.printf("Hello World!\n");
         int exitCode = new CommandLine(new App()).execute(args);
         System.exit(exitCode);
-
-        new CommandLine(new App()).parseArgs(args);
     }
 
-    @Option(names = { "-f", "--format" }, paramLabel = "format", description = "output format [default: stylish]")
-    String format = "stylish";
+    @Option(names = { "-f", "--format" }, paramLabel = "format",
+            description = "Output format (default: ${DEFAULT-VALUE})", defaultValue = "stylish")
+    String format;
 
     @Parameters(index = "0", paramLabel = "filepath1", description = "path to first file")
     File filepath1;
@@ -34,14 +31,21 @@ public class App implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
+        String effectiveFormat = format == null || format.isEmpty() ? "stylish" : format.trim();
+
+        Formatter formatter;
+        if ("stylish".equalsIgnoreCase(effectiveFormat)) {
+            formatter = new Stylish();
+        } else {
+            throw new UnsupportedOperationException("Unsupported format: " + effectiveFormat);
+        }
+
         String type = FilenameUtils.getExtension(filepath1.toString() + filepath2.toString());
 
         Map<String, Object> data1 = Parser.parsing(filepath1, type);
         Map<String, Object> data2 = Parser.parsing(filepath2, type);
 
-        Formatter formatter = new Stylish();
-
-        System.out.println(formatter.format(data1, data2));
+        System.out.println(formatter.format(Differences.differ(data1, data2)));
         return 0;
     }
 }

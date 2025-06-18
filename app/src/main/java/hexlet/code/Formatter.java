@@ -1,7 +1,7 @@
 package hexlet.code;
 
-import java.util.Map;
+import java.util.TreeMap;
 
 public interface Formatter {
-    String format(Map<String, Object> data1, Map<String, Object> data2);
+    String format(TreeMap<String, String> commonData);
 }
