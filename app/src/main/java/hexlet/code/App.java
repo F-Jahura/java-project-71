@@ -23,6 +23,10 @@ public class App implements Callable<Integer> {
             description = "Output format (default: ${DEFAULT-VALUE})", defaultValue = "stylish")
     String format;
 
+    /*@Option(names = { "-f", "--format" }, paramLabel = "format",
+            description = "Output format (default: ${DEFAULT-VALUE})", defaultValue = "plain")
+    String formatPlain;*/
+
     @Parameters(index = "0", paramLabel = "filepath1", description = "path to first file")
     File filepath1;
 
@@ -46,6 +50,8 @@ public class App implements Callable<Integer> {
         Map<String, Object> data2 = Parser.parsing(filepath2, type);
 
         System.out.println(formatter.format(Differences.differ(data1, data2)));
+
+        //PlainFormat.format(Differences.differ(data1, data2));
         return 0;
     }
 }

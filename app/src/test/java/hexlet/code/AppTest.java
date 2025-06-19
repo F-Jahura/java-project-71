@@ -104,7 +104,7 @@ public class AppTest {
         assertEquals(expectedOutput.trim(), outputStream.toString().trim());
     }
 
-    /*@Test
+    @Test
     public void testObjArrayYaml() throws Exception {
         var filePath1 = Paths.get("src", "test", "resources", "filepath1.yaml");
         var filePath2 = Paths.get("src", "test", "resources", "filepath2.yaml");
@@ -140,5 +140,5 @@ public class AppTest {
                 + "+ setting3: none\n"
                 + "}\n";
         assertEquals(expectedOutput.trim(), outputStream.toString().trim());
-    }*/
+    }
 }

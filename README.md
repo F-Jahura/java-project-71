@@ -5,3 +5,6 @@
 
 ### Сравнение плоских файлов:
 ![demo](https://github.com/F-Jahura/java-project-71/blob/main/assets/demo.gif)
+
+### Сравнение файлов, имеющих вложенные структуры:
+![demo](https://github.com/F-Jahura/java-project-71/blob/main/assets/demo_nested.gif)
