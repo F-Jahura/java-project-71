@@ -8,3 +8,6 @@
 
 ### Сравнение файлов, имеющих вложенные структуры:
 ![demo](https://github.com/F-Jahura/java-project-71/blob/main/assets/demo_nested.gif)
+
+### Сравнение файлов, плоский формат:
+![demo](https://github.com/F-Jahura/java-project-71/blob/main/assets/demo_plain.gif)
