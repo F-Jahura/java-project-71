@@ -19,7 +19,7 @@ run-dist-h:
 	./build/install/app/bin/app -h
 
 run:
-	./gradlew run
+	./gradlew run --args="\"src/test/resources/filepath1.json\" \"src/test/resources/filepath2.json\""
 
 test:
 	./gradlew test
