@@ -11,3 +11,6 @@
 
 ### Сравнение файлов, плоский формат:
 ![demo](https://github.com/F-Jahura/java-project-71/blob/main/assets/demo_plain.gif)
+
+### Сравнение файлов, json формат:
+![demo](https://github.com/F-Jahura/java-project-71/blob/main/assets/demo_json.gif)
