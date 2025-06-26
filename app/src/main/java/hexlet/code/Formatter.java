@@ -1,6 +1,7 @@
 package hexlet.code;
 
 import hexlet.code.formatters.FormatStyle;
+import hexlet.code.formatters.JsonStylish;
 import hexlet.code.formatters.PlainSylish;
 import hexlet.code.formatters.Stylish;
 import org.apache.commons.io.FilenameUtils;
@@ -20,6 +21,8 @@ public class Formatter {
             formatStyle = new PlainSylish();
         } else if ("stylish".equalsIgnoreCase(formatName)) {
             formatStyle = new Stylish();
+        } else if ("json".equalsIgnoreCase(formatName)) {
+            formatStyle = new JsonStylish();
         } else {
             throw new UnsupportedOperationException("Unsupported format: " + formatName);
         }

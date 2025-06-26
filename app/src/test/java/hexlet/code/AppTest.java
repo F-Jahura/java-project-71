@@ -1,5 +1,8 @@
 package hexlet.code;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -184,4 +187,89 @@ public class AppTest {
 
         assertEquals(expectedOutput.trim(), outputStream.toString().trim());
     }
+
+    @Test
+    public void testJsonJson() throws Exception {
+        var filePath1 = Paths.get("src", "test", "resources", "filepath1.json").toFile();
+        var filePath2 = Paths.get("src", "test", "resources", "filepath2.json").toFile();
+
+        App app = new App();
+        app.format = "json";
+        app.filepath1 = new File(filePath1.toString());
+        app.filepath2 = new File(filePath2.toString());
+        app.call();
+
+        String expectedJsonString = "{\n"
+                + "  \"added\" : {\n"
+                + "    \"key2\" : \"value2\",\n"
+                + "    \"numbers4\" : [4, 5, 6],\n"
+                + "    \"obj1\" : {\n"
+                + "      \"nestedKey\" : \"value\",\n"
+                + "      \"isNested\" : true\n"
+                + "    }\n"
+                + "  },\n"
+                + "  \"removed\" : {\n"
+                + "    \"key1\" : \"value1\",\n"
+                + "    \"numbers3\" : [ 3, 4, 5 ]\n"
+                + "  },\n"
+                + "  \"updated\" : {\n"
+                + "    \"chars2\" : {\n"
+                + "      \"newValue\" : false,\n"
+                + "      \"oldValue\" : [ \"d\", \"e\", \"f\" ]\n"
+                + "    },\n"
+                + "    \"checked\" : {\n"
+                + "      \"newValue\" : true,\n"
+                + "      \"oldValue\" : false\n"
+                + "    },\n"
+                + "    \"default\" : {\n"
+                + "      \"newValue\" : [ \"value1\", \"value2\" ],\n"
+                + "      \"oldValue\" : null\n"
+                + "    },\n"
+                + "    \"id\" : {\n"
+                + "      \"newValue\" : null,\n"
+                + "      \"oldValue\" : 45\n"
+                + "    },\n"
+                + "    \"numbers2\" : {\n"
+                + "      \"newValue\" : [ 22, 33, 44, 55 ],\n"
+                + "      \"oldValue\" : [ 2, 3, 4, 5 ]\n"
+                + "    },\n"
+                + "    \"setting1\" : {\n"
+                + "      \"newValue\" : \"Another value\",\n"
+                + "      \"oldValue\" : \"Some value\"\n"
+                + "    },\n"
+                + "    \"setting2\" : {\n"
+                + "      \"newValue\" : 300,\n"
+                + "      \"oldValue\" : 200\n"
+                + "    },\n"
+                + "    \"setting3\" : {\n"
+                + "      \"newValue\" : \"none\",\n"
+                + "      \"oldValue\" : true\n"
+                + "    }\n"
+                + "  }\n"
+                + "}";
+
+        /*ObjectMapper objectMapper = new ObjectMapper();
+
+        Map<String, Object> expectedJson = objectMapper.readValue(expectedJsonString,
+                new TypeReference<Map<String, Object>>() { });
+
+        Map<String, Object> actualJson = objectMapper.readValue(outputStream.toString(),
+                new TypeReference<Map<String, Object>>() { });
+
+        assertEquals(expectedJson, actualJson);*/
+
+        //assertEquals(expectedJsonString.trim(), outputStream.toString().trim());
+
+        String normalizedActualOutput = normalizeJson(outputStream.toString().trim());
+        String normalizedExpectedOutput = normalizeJson(expectedJsonString.trim());
+
+        assertEquals(normalizedExpectedOutput, normalizedActualOutput, "Данные различий не совпадают");
+    }
+
+    public String normalizeJson(String json) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, Object> map = objectMapper.readValue(json, new TypeReference<Map<String, Object>>() { });
+        return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(map);
+    }
+
 }

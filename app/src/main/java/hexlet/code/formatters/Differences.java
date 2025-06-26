@@ -5,8 +5,8 @@ import java.util.Objects;
 import java.util.TreeMap;
 
 public class Differences {
-    public static TreeMap<String, String> differ(Map<String, Object> data1, Map<String, Object> data2) {
-        TreeMap<String, String> commonData = new TreeMap<>();
+    public static TreeMap<String, Object> differ(Map<String, Object> data1, Map<String, Object> data2) {
+        TreeMap<String, Object> commonData = new TreeMap<>();
 
         for (Map.Entry<String, Object> entry : data1.entrySet()) {
             if (!data2.containsKey(entry.getKey())) {
