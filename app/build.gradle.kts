@@ -35,8 +35,8 @@ dependencies {
     implementation("org.apache.commons:commons-lang3:3.17.0")
     implementation("info.picocli:picocli:4.7.7")
     annotationProcessor("info.picocli:picocli-codegen:4.7.7")
-    implementation ("com.fasterxml.jackson.core:jackson-databind:2.13.3")
-    implementation ("commons-io:commons-io:2.11.0")
+    implementation ("com.fasterxml.jackson.core:jackson-databind:2.13.4.2")
+    implementation ("commons-io:commons-io:2.14.0")
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.13.3")
 }
 
@@ -63,6 +63,12 @@ val myCheckstyleTest by tasks.registering(Checkstyle::class) {
 
 tasks.named("check") {
     dependsOn(myCheckstyleTest)
+}
+
+tasks.register("taskName") {
+    doLast {
+        println("This is a new custom task!")
+    }
 }
 
 sonar {
