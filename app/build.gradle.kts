@@ -70,6 +70,11 @@ tasks.register("taskName") {
     }
 }
 
+tasks.jacocoTestReport {
+    reports { xml.required.set(true)
+    }
+}
+
 sonar {
     properties {
         property("sonar.projectKey", "F-Jahura_java-project-71")
