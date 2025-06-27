@@ -9,7 +9,7 @@ import org.apache.commons.io.FilenameUtils;
 import java.io.File;
 import java.util.Map;
 
-public class Formatter {
+public class Differ {
     public static String generate(File filePath1, File filePath2, String formatName) throws Exception {
         String type = FilenameUtils.getExtension(filePath1.toString() + filePath2.toString());
 
