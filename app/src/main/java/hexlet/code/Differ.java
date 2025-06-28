@@ -6,12 +6,11 @@ import hexlet.code.formatters.PlainSylish;
 import hexlet.code.formatters.Stylish;
 import org.apache.commons.io.FilenameUtils;
 
-import java.io.File;
 import java.util.Map;
 
 public class Differ {
-    public static String generate(File filePath1, File filePath2, String formatName) throws Exception {
-        String type = FilenameUtils.getExtension(filePath1.toString() + filePath2.toString());
+    public static String generate(String filePath1, String filePath2, String formatName) throws Exception {
+        String type = FilenameUtils.getExtension(filePath1 + filePath2);
 
         Map<String, Object> data1 = Parser.parsing(filePath1, type);
         Map<String, Object> data2 = Parser.parsing(filePath2, type);
@@ -30,7 +29,7 @@ public class Differ {
         return formatStyle.format(data1, data2);
     }
 
-    /*public static String generate(File filePath1, File filePath2) throws Exception {
+    public static String generate(String filePath1, String  filePath2) throws Exception {
         return generate(filePath1, filePath2, "stylish");
-    }*/
+    }
 }

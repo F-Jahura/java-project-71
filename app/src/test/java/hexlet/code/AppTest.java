@@ -8,7 +8,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.PrintStream;
 import java.nio.file.Paths;
 import java.util.List;
@@ -46,11 +45,11 @@ public class AppTest {
     public void testJson() throws Exception {
         //var filePath1 = Paths.get("src", "test", "resources", "file1.json");
         //var filePath2 = Paths.get("src", "test", "resources", "file2.json");
-        File filePath1 = Paths.get("src", "test", "resources", "file1.json").toFile();
-        File filePath2 = Paths.get("src", "test", "resources", "file2.json").toFile();
+        var filePath1 = Paths.get("src", "test", "resources", "file1.json").toString();
+        var filePath2 = Paths.get("src", "test", "resources", "file2.json").toString();
 
         App app = new App();
-        app.filepath1 = filePath1; //new File(filePath1.toString());
+        app.filepath1 = filePath1;
         app.filepath2 = filePath2; //new File(filePath2.toString());
         app.call();
 
@@ -67,8 +66,8 @@ public class AppTest {
 
     @Test
     public void testYaml() throws Exception {
-        var filePath1 = Paths.get("src", "test", "resources", "file1.yaml").toFile();
-        var filePath2 = Paths.get("src", "test", "resources", "file2.yaml").toFile();
+        var filePath1 = Paths.get("src", "test", "resources", "file1.yaml").toString();
+        var filePath2 = Paths.get("src", "test", "resources", "file2.yaml").toString();
 
         App app = new App();
         app.filepath1 = filePath1; //new File(filePath1.toString());
@@ -88,8 +87,8 @@ public class AppTest {
 
     @Test
     public void testObjArrayJson() throws Exception {
-        var filePath1 = Paths.get("src", "test", "resources", "filepath1.json").toFile();
-        var filePath2 = Paths.get("src", "test", "resources", "filepath2.json").toFile();
+        var filePath1 = Paths.get("src", "test", "resources", "filepath1.json").toString();
+        var filePath2 = Paths.get("src", "test", "resources", "filepath2.json").toString();
 
         App app = new App();
         app.filepath1 = filePath1; //new File(filePath1.toString());
@@ -126,8 +125,8 @@ public class AppTest {
 
     @Test
     public void testObjArrayYaml() throws Exception {
-        var filePath1 = Paths.get("src", "test", "resources", "filepath1.yaml").toFile();
-        var filePath2 = Paths.get("src", "test", "resources", "filepath2.yaml").toFile();
+        var filePath1 = Paths.get("src", "test", "resources", "filepath1.yaml").toString();
+        var filePath2 = Paths.get("src", "test", "resources", "filepath2.yaml").toString();
 
         App app = new App();
         app.filepath1 = filePath1; //new File(filePath1.toString());
@@ -164,8 +163,8 @@ public class AppTest {
 
     @Test
     public void testPlainJson() throws Exception {
-        var filePath1 = Paths.get("src", "test", "resources", "filepath1.json").toFile();
-        var filePath2 = Paths.get("src", "test", "resources", "filepath2.json").toFile();
+        var filePath1 = Paths.get("src", "test", "resources", "filepath1.json").toString();
+        var filePath2 = Paths.get("src", "test", "resources", "filepath2.json").toString();
 
         App app = new App();
         app.format = "plain";
@@ -192,8 +191,8 @@ public class AppTest {
 
     @Test
     public void testJsonJson() throws Exception {
-        var filePath1 = Paths.get("src", "test", "resources", "filepath1.json").toFile();
-        var filePath2 = Paths.get("src", "test", "resources", "filepath2.json").toFile();
+        var filePath1 = Paths.get("src", "test", "resources", "filepath1.json").toString();
+        var filePath2 = Paths.get("src", "test", "resources", "filepath2.json").toString();
 
         App app = new App();
         app.format = "json";

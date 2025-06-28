@@ -5,7 +5,6 @@ import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
-import java.io.File;
 import java.util.concurrent.Callable;
 
 @Command(name = "gendiff", mixinStandardHelpOptions = true,
@@ -22,16 +21,16 @@ public class App implements Callable<Integer> {
     String format;
 
     @Parameters(index = "0", paramLabel = "filepath1", description = "path to first file")
-    File filepath1;
+    String filepath1;
 
     @Parameters(index = "1", paramLabel = "filepath2", description = "path to second file")
-    File filepath2;
+    String filepath2;
 
     @Override
     public Integer call() throws Exception {
         String effectiveFormat = format == null || format.isEmpty() ? "stylish" : format.trim();
 
-        String diff = Differ.generate(filepath1, filepath2, effectiveFormat);
+        var diff = Differ.generate(filepath1, filepath2, effectiveFormat);
 
         System.out.println(diff);
 
