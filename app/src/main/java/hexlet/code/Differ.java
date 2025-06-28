@@ -29,4 +29,8 @@ public class Differ {
 
         return formatStyle.format(data1, data2);
     }
+
+    public static String generate(File filePath1, File filePath2) throws Exception {
+        return generate(filePath1, filePath2, "stylish");
+    }
 }
