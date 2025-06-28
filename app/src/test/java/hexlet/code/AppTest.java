@@ -44,12 +44,14 @@ public class AppTest {
 
     @Test
     public void testJson() throws Exception {
-        var filePath1 = Paths.get("src", "test", "resources", "file1.json");
-        var filePath2 = Paths.get("src", "test", "resources", "file2.json");
+        //var filePath1 = Paths.get("src", "test", "resources", "file1.json");
+        //var filePath2 = Paths.get("src", "test", "resources", "file2.json");
+        File filePath1 = Paths.get("src", "test", "resources", "file1.json").toFile();
+        File filePath2 = Paths.get("src", "test", "resources", "file2.json").toFile();
 
         App app = new App();
-        app.filepath1 = new File(filePath1.toString());
-        app.filepath2 = new File(filePath2.toString());
+        app.filepath1 = filePath1; //new File(filePath1.toString());
+        app.filepath2 = filePath2; //new File(filePath2.toString());
         app.call();
 
         String expectedOutput = "{\n"
@@ -65,12 +67,12 @@ public class AppTest {
 
     @Test
     public void testYaml() throws Exception {
-        var filePath1 = Paths.get("src", "test", "resources", "file1.yaml");
-        var filePath2 = Paths.get("src", "test", "resources", "file2.yaml");
+        var filePath1 = Paths.get("src", "test", "resources", "file1.yaml").toFile();
+        var filePath2 = Paths.get("src", "test", "resources", "file2.yaml").toFile();
 
         App app = new App();
-        app.filepath1 = new File(filePath1.toString());
-        app.filepath2 = new File(filePath2.toString());
+        app.filepath1 = filePath1; //new File(filePath1.toString());
+        app.filepath2 = filePath2; //new File(filePath2.toString());
         app.call();
 
         String expectedOutput = "{\n"
@@ -86,12 +88,12 @@ public class AppTest {
 
     @Test
     public void testObjArrayJson() throws Exception {
-        var filePath1 = Paths.get("src", "test", "resources", "filepath1.json");
-        var filePath2 = Paths.get("src", "test", "resources", "filepath2.json");
+        var filePath1 = Paths.get("src", "test", "resources", "filepath1.json").toFile();
+        var filePath2 = Paths.get("src", "test", "resources", "filepath2.json").toFile();
 
         App app = new App();
-        app.filepath1 = new File(filePath1.toString());
-        app.filepath2 = new File(filePath2.toString());
+        app.filepath1 = filePath1; //new File(filePath1.toString());
+        app.filepath2 = filePath2; //new File(filePath2.toString());
         app.call();
 
         String expectedOutput = "{\n"
@@ -124,12 +126,12 @@ public class AppTest {
 
     @Test
     public void testObjArrayYaml() throws Exception {
-        var filePath1 = Paths.get("src", "test", "resources", "filepath1.yaml");
-        var filePath2 = Paths.get("src", "test", "resources", "filepath2.yaml");
+        var filePath1 = Paths.get("src", "test", "resources", "filepath1.yaml").toFile();
+        var filePath2 = Paths.get("src", "test", "resources", "filepath2.yaml").toFile();
 
         App app = new App();
-        app.filepath1 = new File(filePath1.toString());
-        app.filepath2 = new File(filePath2.toString());
+        app.filepath1 = filePath1; //new File(filePath1.toString());
+        app.filepath2 = filePath2; //new File(filePath2.toString());
         app.call();
 
         String expectedOutput = "{\n"
@@ -167,8 +169,8 @@ public class AppTest {
 
         App app = new App();
         app.format = "plain";
-        app.filepath1 = new File(filePath1.toString());
-        app.filepath2 = new File(filePath2.toString());
+        app.filepath1 = filePath1; //new File(filePath1.toString());
+        app.filepath2 = filePath2; //new File(filePath2.toString());
         app.call();
 
         String expectedOutput = "Property 'chars2' was updated. From [complex value] to false\n"
@@ -195,8 +197,8 @@ public class AppTest {
 
         App app = new App();
         app.format = "json";
-        app.filepath1 = new File(filePath1.toString());
-        app.filepath2 = new File(filePath2.toString());
+        app.filepath1 = filePath1; //new File(filePath1.toString());
+        app.filepath2 = filePath2; // new File(filePath2.toString());
         app.call();
 
         String expectedJsonString = "{\n"
