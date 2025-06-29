@@ -42,51 +42,7 @@ public class AppTest {
     }
 
     @Test
-    public void testJson() throws Exception {
-        //var filePath1 = Paths.get("src", "test", "resources", "file1.json");
-        //var filePath2 = Paths.get("src", "test", "resources", "file2.json");
-        var filePath1 = Paths.get("src", "test", "resources", "file1.json").toString();
-        var filePath2 = Paths.get("src", "test", "resources", "file2.json").toString();
-
-        App app = new App();
-        app.filepath1 = filePath1;
-        app.filepath2 = filePath2; //new File(filePath2.toString());
-        app.call();
-
-        String expectedOutput = "{\n"
-                + "- follow: false\n"
-                + "  host: hexlet.io\n"
-                + "- proxy: 123.234.53.22\n"
-                + "- timeout: 50\n"
-                + "+ timeout: 20\n"
-                + "+ verbose: true\n"
-                + "}\n";
-        assertEquals(expectedOutput.trim(), outputStream.toString().trim());
-    }
-
-    @Test
-    public void testYaml() throws Exception {
-        var filePath1 = Paths.get("src", "test", "resources", "file1.yaml").toString();
-        var filePath2 = Paths.get("src", "test", "resources", "file2.yaml").toString();
-
-        App app = new App();
-        app.filepath1 = filePath1; //new File(filePath1.toString());
-        app.filepath2 = filePath2; //new File(filePath2.toString());
-        app.call();
-
-        String expectedOutput = "{\n"
-                + "- follow: false\n"
-                + "  host: hexlet.io\n"
-                + "- proxy: 123.234.53.22\n"
-                + "- timeout: 50\n"
-                + "+ timeout: 20\n"
-                + "+ verbose: true\n"
-                + "}\n";
-        assertEquals(expectedOutput.trim(), outputStream.toString().trim());
-    }
-
-    @Test
-    public void testObjArrayJson() throws Exception {
+    public void testJsonToStylish() throws Exception {
         var filePath1 = Paths.get("src", "test", "resources", "filepath1.json").toString();
         var filePath2 = Paths.get("src", "test", "resources", "filepath2.json").toString();
 
@@ -96,35 +52,35 @@ public class AppTest {
         app.call();
 
         String expectedOutput = "{\n"
-                + "  chars1: [a, b, c]\n"
-                + "- chars2: [d, e, f]\n"
-                + "+ chars2: false\n"
-                + "- checked: false\n"
-                + "+ checked: true\n"
-                + "- default: null\n"
-                + "+ default: [value1, value2]\n"
-                + "- id: 45\n"
-                + "+ id: null\n"
-                + "- key1: value1\n"
-                + "+ key2: value2\n"
-                + "  numbers1: [1, 2, 3, 4]\n"
-                + "- numbers2: [2, 3, 4, 5]\n"
-                + "+ numbers2: [22, 33, 44, 55]\n"
-                + "- numbers3: [3, 4, 5]\n"
-                + "+ numbers4: [4, 5, 6]\n"
-                + "+ obj1: {nestedKey=value, isNested=true}\n"
-                + "- setting1: Some value\n"
-                + "+ setting1: Another value\n"
-                + "- setting2: 200\n"
-                + "+ setting2: 300\n"
-                + "- setting3: true\n"
-                + "+ setting3: none\n"
+                + "    chars1: [a, b, c]\n"
+                + "  - chars2: [d, e, f]\n"
+                + "  + chars2: false\n"
+                + "  - checked: false\n"
+                + "  + checked: true\n"
+                + "  - default: null\n"
+                + "  + default: [value1, value2]\n"
+                + "  - id: 45\n"
+                + "  + id: null\n"
+                + "  - key1: value1\n"
+                + "  + key2: value2\n"
+                + "    numbers1: [1, 2, 3, 4]\n"
+                + "  - numbers2: [2, 3, 4, 5]\n"
+                + "  + numbers2: [22, 33, 44, 55]\n"
+                + "  - numbers3: [3, 4, 5]\n"
+                + "  + numbers4: [4, 5, 6]\n"
+                + "  + obj1: {nestedKey=value, isNested=true}\n"
+                + "  - setting1: Some value\n"
+                + "  + setting1: Another value\n"
+                + "  - setting2: 200\n"
+                + "  + setting2: 300\n"
+                + "  - setting3: true\n"
+                + "  + setting3: none\n"
                 + "}\n";
         assertEquals(expectedOutput.trim(), outputStream.toString().trim());
     }
 
     @Test
-    public void testObjArrayYaml() throws Exception {
+    public void testYamlToStylish() throws Exception {
         var filePath1 = Paths.get("src", "test", "resources", "filepath1.yaml").toString();
         var filePath2 = Paths.get("src", "test", "resources", "filepath2.yaml").toString();
 
@@ -134,35 +90,35 @@ public class AppTest {
         app.call();
 
         String expectedOutput = "{\n"
-                + "  chars1: [a, b, c]\n"
-                + "- chars2: [d, e, f]\n"
-                + "+ chars2: false\n"
-                + "- checked: false\n"
-                + "+ checked: true\n"
-                + "- default: null\n"
-                + "+ default: [value1, value2]\n"
-                + "- id: 45\n"
-                + "+ id: null\n"
-                + "- key1: value1\n"
-                + "+ key2: value2\n"
-                + "  numbers1: [1, 2, 3, 4]\n"
-                + "- numbers2: [2, 3, 4, 5]\n"
-                + "+ numbers2: [22, 33, 44, 55]\n"
-                + "- numbers3: [3, 4, 5]\n"
-                + "+ numbers4: [4, 5, 6]\n"
-                + "+ obj1: {nestedKey=value, isNested=true}\n"
-                + "- setting1: Some value\n"
-                + "+ setting1: Another value\n"
-                + "- setting2: 200\n"
-                + "+ setting2: 300\n"
-                + "- setting3: true\n"
-                + "+ setting3: none\n"
+                + "    chars1: [a, b, c]\n"
+                + "  - chars2: [d, e, f]\n"
+                + "  + chars2: false\n"
+                + "  - checked: false\n"
+                + "  + checked: true\n"
+                + "  - default: null\n"
+                + "  + default: [value1, value2]\n"
+                + "  - id: 45\n"
+                + "  + id: null\n"
+                + "  - key1: value1\n"
+                + "  + key2: value2\n"
+                + "    numbers1: [1, 2, 3, 4]\n"
+                + "  - numbers2: [2, 3, 4, 5]\n"
+                + "  + numbers2: [22, 33, 44, 55]\n"
+                + "  - numbers3: [3, 4, 5]\n"
+                + "  + numbers4: [4, 5, 6]\n"
+                + "  + obj1: {nestedKey=value, isNested=true}\n"
+                + "  - setting1: Some value\n"
+                + "  + setting1: Another value\n"
+                + "  - setting2: 200\n"
+                + "  + setting2: 300\n"
+                + "  - setting3: true\n"
+                + "  + setting3: none\n"
                 + "}\n";
         assertEquals(expectedOutput.trim(), outputStream.toString().trim());
     }
 
     @Test
-    public void testPlainJson() throws Exception {
+    public void tesJsonToPlain() throws Exception {
         var filePath1 = Paths.get("src", "test", "resources", "filepath1.json").toString();
         var filePath2 = Paths.get("src", "test", "resources", "filepath2.json").toString();
 
@@ -190,7 +146,7 @@ public class AppTest {
     }
 
     @Test
-    public void testJsonJson() throws Exception {
+    public void testJsonToJson() throws Exception {
         var filePath1 = Paths.get("src", "test", "resources", "filepath1.json").toString();
         var filePath2 = Paths.get("src", "test", "resources", "filepath2.json").toString();
 

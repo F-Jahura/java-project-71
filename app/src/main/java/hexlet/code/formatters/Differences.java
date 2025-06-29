@@ -10,22 +10,22 @@ public class Differences {
 
         for (Map.Entry<String, Object> entry : data1.entrySet()) {
             if (!data2.containsKey(entry.getKey())) {
-                commonData.put(entry.getKey(), String.format("- %s: %s", entry.getKey(), entry.getValue()));
+                commonData.put(entry.getKey(), String.format("  - %s: %s", entry.getKey(), entry.getValue()));
             }
 
             if (data2.containsKey(entry.getKey()) && Objects.equals(entry.getValue(), data2.get(entry.getKey()))) {
-                commonData.put(entry.getKey(), String.format("  %s: %s", entry.getKey(), entry.getValue()));
+                commonData.put(entry.getKey(), String.format("    %s: %s", entry.getKey(), entry.getValue()));
             }
 
             if (data2.containsKey(entry.getKey()) && !Objects.equals(entry.getValue(), data2.get(entry.getKey()))) {
-                commonData.put(entry.getKey(), String.format("- %s: %s\n+ %s: %s",
+                commonData.put(entry.getKey(), String.format("  - %s: %s\n  + %s: %s",
                         entry.getKey(), entry.getValue(), entry.getKey(), data2.get(entry.getKey())));
             }
         }
 
         for (Map.Entry<String, Object> entry : data2.entrySet()) {
             if (!data1.containsKey(entry.getKey())) {
-                commonData.put(entry.getKey(), String.format("+ %s: %s", entry.getKey(), entry.getValue()));
+                commonData.put(entry.getKey(), String.format("  + %s: %s", entry.getKey(), entry.getValue()));
             }
         }
 
