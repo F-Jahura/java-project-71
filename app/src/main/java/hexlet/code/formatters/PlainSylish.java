@@ -3,7 +3,7 @@ package hexlet.code.formatters;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class PlainSylish implements FormatStyle {
+public final class PlainSylish implements FormatStyle {
     @Override
     public String format(Map<String, Object> data1, Map<String, Object> data2) {
         TreeMap<String, Object> commonData = PlainDifferences.dif(data1, data2);

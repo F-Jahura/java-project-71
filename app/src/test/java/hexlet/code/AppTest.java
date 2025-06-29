@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-public class AppTest {
+public final class AppTest {
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
 
@@ -47,8 +47,8 @@ public class AppTest {
         var filePath2 = Paths.get("src", "test", "resources", "filepath2.json").toString();
 
         App app = new App();
-        app.filepath1 = filePath1; //new File(filePath1.toString());
-        app.filepath2 = filePath2; //new File(filePath2.toString());
+        app.setFilepath1(filePath1);
+        app.setFilepath2(filePath2);
         app.call();
 
         String expectedOutput = "{\n"
@@ -85,8 +85,8 @@ public class AppTest {
         var filePath2 = Paths.get("src", "test", "resources", "filepath2.yaml").toString();
 
         App app = new App();
-        app.filepath1 = filePath1; //new File(filePath1.toString());
-        app.filepath2 = filePath2; //new File(filePath2.toString());
+        app.setFilepath1(filePath1);
+        app.setFilepath2(filePath2);
         app.call();
 
         String expectedOutput = "{\n"
@@ -123,9 +123,9 @@ public class AppTest {
         var filePath2 = Paths.get("src", "test", "resources", "filepath2.json").toString();
 
         App app = new App();
-        app.format = "plain";
-        app.filepath1 = filePath1; //new File(filePath1.toString());
-        app.filepath2 = filePath2; //new File(filePath2.toString());
+        app.setFormat("plain");
+        app.setFilepath1(filePath1);
+        app.setFilepath2(filePath2);
         app.call();
 
         String expectedOutput = "Property 'chars2' was updated. From [complex value] to false\n"
@@ -151,9 +151,9 @@ public class AppTest {
         var filePath2 = Paths.get("src", "test", "resources", "filepath2.json").toString();
 
         App app = new App();
-        app.format = "json";
-        app.filepath1 = filePath1; //new File(filePath1.toString());
-        app.filepath2 = filePath2; // new File(filePath2.toString());
+        app.setFormat("json");
+        app.setFilepath1(filePath1);
+        app.setFilepath2(filePath2);
         app.call();
 
         String expectedJsonString = "{\n"
@@ -220,7 +220,7 @@ public class AppTest {
         String normalizedActualOutput = normalizeJson(outputStream.toString().trim());
         String normalizedExpectedOutput = normalizeJson(expectedJsonString.trim());
 
-        assertEquals(normalizedExpectedOutput, normalizedActualOutput, "Данные различий не совпадают");
+        assertEquals(normalizedExpectedOutput, normalizedActualOutput, "data does not match");
     }
 
     public String normalizeJson(String json) throws JsonProcessingException {
