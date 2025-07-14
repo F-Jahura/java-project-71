@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class Plain implements FormatStyle {
+public final class Plain implements FormatStyle {
     private static String formatValue(Object value) {
         if (value instanceof Map || value instanceof List) {
             return "[complex value]";

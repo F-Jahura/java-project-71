@@ -8,7 +8,7 @@ import hexlet.code.Differ;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class Json implements FormatStyle {
+public final class Json implements FormatStyle {
     @Override
     public String format(Map<String, Object> data1, Map<String, Object> data2) throws JsonProcessingException {
         Map<String, TreeMap<String, Object>> jsonFormat = Differ.getDiff(data1, data2);
