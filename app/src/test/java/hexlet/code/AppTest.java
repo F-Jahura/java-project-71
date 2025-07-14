@@ -10,13 +10,101 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 public final class AppTest {
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
+
+    //private final String pathToPlain = "src/test/resources/plain";
+
+    private final String tylishFormat = "{\n"
+            + "    chars1: [a, b, c]\n"
+            + "  - chars2: [d, e, f]\n"
+            + "  + chars2: false\n"
+            + "  - checked: false\n"
+            + "  + checked: true\n"
+            + "  - default: null\n"
+            + "  + default: [value1, value2]\n"
+            + "  - id: 45\n"
+            + "  + id: null\n"
+            + "  - key1: value1\n"
+            + "  + key2: value2\n"
+            + "    numbers1: [1, 2, 3, 4]\n"
+            + "  - numbers2: [2, 3, 4, 5]\n"
+            + "  + numbers2: [22, 33, 44, 55]\n"
+            + "  - numbers3: [3, 4, 5]\n"
+            + "  + numbers4: [4, 5, 6]\n"
+            + "  + obj1: {nestedKey=value, isNested=true}\n"
+            + "  - setting1: Some value\n"
+            + "  + setting1: Another value\n"
+            + "  - setting2: 200\n"
+            + "  + setting2: 300\n"
+            + "  - setting3: true\n"
+            + "  + setting3: none\n"
+            + "}\n";
+    private final String plainFormat = "Property 'chars2' was updated. From [complex value] to false\n"
+            + "Property 'checked' was updated. From false to true\n"
+            + "Property 'default' was updated. From null to [complex value]\n"
+            + "Property 'id' was updated. From 45 to null\n"
+            + "Property 'key1' was removed\n"
+            + "Property 'key2' was added with value: 'value2'\n"
+            + "Property 'numbers2' was updated. From [complex value] to [complex value]\n"
+            + "Property 'numbers3' was removed\n"
+            + "Property 'numbers4' was added with value: [complex value]\n"
+            + "Property 'obj1' was added with value: [complex value]\n"
+            + "Property 'setting1' was updated. From 'Some value' to 'Another value'\n"
+            + "Property 'setting2' was updated. From 200 to 300\n"
+            + "Property 'setting3' was updated. From true to 'none'\n";
+    private final String jsonFormat = "{\n"
+            + "  \"added\" : {\n"
+            + "    \"key2\" : \"value2\",\n"
+            + "    \"numbers4\" : [4, 5, 6],\n"
+            + "    \"obj1\" : {\n"
+            + "      \"nestedKey\" : \"value\",\n"
+            + "      \"isNested\" : true\n"
+            + "    }\n"
+            + "  },\n"
+            + "  \"removed\" : {\n"
+            + "    \"key1\" : \"value1\",\n"
+            + "    \"numbers3\" : [ 3, 4, 5 ]\n"
+            + "  },\n"
+            + "  \"updated\" : {\n"
+            + "    \"chars2\" : {\n"
+            + "      \"newValue\" : false,\n"
+            + "      \"oldValue\" : [ \"d\", \"e\", \"f\" ]\n"
+            + "    },\n"
+            + "    \"checked\" : {\n"
+            + "      \"newValue\" : true,\n"
+            + "      \"oldValue\" : false\n"
+            + "    },\n"
+            + "    \"default\" : {\n"
+            + "      \"newValue\" : [ \"value1\", \"value2\" ],\n"
+            + "      \"oldValue\" : null\n"
+            + "    },\n"
+            + "    \"id\" : {\n"
+            + "      \"newValue\" : null,\n"
+            + "      \"oldValue\" : 45\n"
+            + "    },\n"
+            + "    \"numbers2\" : {\n"
+            + "      \"newValue\" : [ 22, 33, 44, 55 ],\n"
+            + "      \"oldValue\" : [ 2, 3, 4, 5 ]\n"
+            + "    },\n"
+            + "    \"setting1\" : {\n"
+            + "      \"newValue\" : \"Another value\",\n"
+            + "      \"oldValue\" : \"Some value\"\n"
+            + "    },\n"
+            + "    \"setting2\" : {\n"
+            + "      \"newValue\" : 300,\n"
+            + "      \"oldValue\" : 200\n"
+            + "    },\n"
+            + "    \"setting3\" : {\n"
+            + "      \"newValue\" : \"none\",\n"
+            + "      \"oldValue\" : true\n"
+            + "    }\n"
+            + "  }\n"
+            + "}";
 
     @BeforeEach
     public void setUp() {
@@ -26,19 +114,6 @@ public final class AppTest {
     @AfterEach
     public void tearDown() {
         System.setOut(originalOut);
-    }
-
-    private static String formatValue(Object value) {
-        if (value instanceof Map || value instanceof List) {
-            return "[complex value]";
-        }
-        if (value instanceof String) {
-
-
-
-            return String.format("'%s'", value);
-        }
-        return String.valueOf(value);
     }
 
     @Test
@@ -51,32 +126,7 @@ public final class AppTest {
         app.setFilepath2(filePath2);
         app.call();
 
-        String expectedOutput = "{\n"
-                + "    chars1: [a, b, c]\n"
-                + "  - chars2: [d, e, f]\n"
-                + "  + chars2: false\n"
-                + "  - checked: false\n"
-                + "  + checked: true\n"
-                + "  - default: null\n"
-                + "  + default: [value1, value2]\n"
-                + "  - id: 45\n"
-                + "  + id: null\n"
-                + "  - key1: value1\n"
-                + "  + key2: value2\n"
-                + "    numbers1: [1, 2, 3, 4]\n"
-                + "  - numbers2: [2, 3, 4, 5]\n"
-                + "  + numbers2: [22, 33, 44, 55]\n"
-                + "  - numbers3: [3, 4, 5]\n"
-                + "  + numbers4: [4, 5, 6]\n"
-                + "  + obj1: {nestedKey=value, isNested=true}\n"
-                + "  - setting1: Some value\n"
-                + "  + setting1: Another value\n"
-                + "  - setting2: 200\n"
-                + "  + setting2: 300\n"
-                + "  - setting3: true\n"
-                + "  + setting3: none\n"
-                + "}\n";
-        assertEquals(expectedOutput.trim(), outputStream.toString().trim());
+        assertEquals(tylishFormat.trim(), outputStream.toString().trim());
     }
 
     @Test
@@ -89,32 +139,7 @@ public final class AppTest {
         app.setFilepath2(filePath2);
         app.call();
 
-        String expectedOutput = "{\n"
-                + "    chars1: [a, b, c]\n"
-                + "  - chars2: [d, e, f]\n"
-                + "  + chars2: false\n"
-                + "  - checked: false\n"
-                + "  + checked: true\n"
-                + "  - default: null\n"
-                + "  + default: [value1, value2]\n"
-                + "  - id: 45\n"
-                + "  + id: null\n"
-                + "  - key1: value1\n"
-                + "  + key2: value2\n"
-                + "    numbers1: [1, 2, 3, 4]\n"
-                + "  - numbers2: [2, 3, 4, 5]\n"
-                + "  + numbers2: [22, 33, 44, 55]\n"
-                + "  - numbers3: [3, 4, 5]\n"
-                + "  + numbers4: [4, 5, 6]\n"
-                + "  + obj1: {nestedKey=value, isNested=true}\n"
-                + "  - setting1: Some value\n"
-                + "  + setting1: Another value\n"
-                + "  - setting2: 200\n"
-                + "  + setting2: 300\n"
-                + "  - setting3: true\n"
-                + "  + setting3: none\n"
-                + "}\n";
-        assertEquals(expectedOutput.trim(), outputStream.toString().trim());
+        assertEquals(tylishFormat.trim(), outputStream.toString().trim());
     }
 
     @Test
@@ -122,27 +147,31 @@ public final class AppTest {
         var filePath1 = Paths.get("src", "test", "resources", "filepath1.json").toString();
         var filePath2 = Paths.get("src", "test", "resources", "filepath2.json").toString();
 
+        /*var plainPath = Paths.get(pathToPlain).toAbsolutePath().normalize();
+        String expected = Files.readString(plainPath);*/
+
         App app = new App();
         app.setFormat("plain");
         app.setFilepath1(filePath1);
         app.setFilepath2(filePath2);
         app.call();
 
-        String expectedOutput = "Property 'chars2' was updated. From [complex value] to false\n"
-                + "Property 'checked' was updated. From false to true\n"
-                + "Property 'default' was updated. From null to [complex value]\n"
-                + "Property 'id' was updated. From 45 to null\n"
-                + "Property 'key1' was removed\n"
-                + "Property 'key2' was added with value: 'value2'\n"
-                + "Property 'numbers2' was updated. From [complex value] to [complex value]\n"
-                + "Property 'numbers3' was removed\n"
-                + "Property 'numbers4' was added with value: [complex value]\n"
-                + "Property 'obj1' was added with value: [complex value]\n"
-                + "Property 'setting1' was updated. From 'Some value' to 'Another value'\n"
-                + "Property 'setting2' was updated. From 200 to 300\n"
-                + "Property 'setting3' was updated. From true to 'none'\n";
+        assertEquals(plainFormat.trim(), outputStream.toString().trim());
+        //assertEquals(expected.trim(), outputStream.toString().trim());
+    }
 
-        assertEquals(expectedOutput.trim(), outputStream.toString().trim());
+    @Test
+    public void tesYamlToPlain() throws Exception {
+        var filePath1 = Paths.get("src", "test", "resources", "filepath1.yaml").toString();
+        var filePath2 = Paths.get("src", "test", "resources", "filepath2.yaml").toString();
+
+        App app = new App();
+        app.setFormat("plain");
+        app.setFilepath1(filePath1);
+        app.setFilepath2(filePath2);
+        app.call();
+
+        assertEquals(plainFormat.trim(), outputStream.toString().trim());
     }
 
     @Test
@@ -156,69 +185,25 @@ public final class AppTest {
         app.setFilepath2(filePath2);
         app.call();
 
-        String expectedJsonString = "{\n"
-                + "  \"added\" : {\n"
-                + "    \"key2\" : \"value2\",\n"
-                + "    \"numbers4\" : [4, 5, 6],\n"
-                + "    \"obj1\" : {\n"
-                + "      \"nestedKey\" : \"value\",\n"
-                + "      \"isNested\" : true\n"
-                + "    }\n"
-                + "  },\n"
-                + "  \"removed\" : {\n"
-                + "    \"key1\" : \"value1\",\n"
-                + "    \"numbers3\" : [ 3, 4, 5 ]\n"
-                + "  },\n"
-                + "  \"updated\" : {\n"
-                + "    \"chars2\" : {\n"
-                + "      \"newValue\" : false,\n"
-                + "      \"oldValue\" : [ \"d\", \"e\", \"f\" ]\n"
-                + "    },\n"
-                + "    \"checked\" : {\n"
-                + "      \"newValue\" : true,\n"
-                + "      \"oldValue\" : false\n"
-                + "    },\n"
-                + "    \"default\" : {\n"
-                + "      \"newValue\" : [ \"value1\", \"value2\" ],\n"
-                + "      \"oldValue\" : null\n"
-                + "    },\n"
-                + "    \"id\" : {\n"
-                + "      \"newValue\" : null,\n"
-                + "      \"oldValue\" : 45\n"
-                + "    },\n"
-                + "    \"numbers2\" : {\n"
-                + "      \"newValue\" : [ 22, 33, 44, 55 ],\n"
-                + "      \"oldValue\" : [ 2, 3, 4, 5 ]\n"
-                + "    },\n"
-                + "    \"setting1\" : {\n"
-                + "      \"newValue\" : \"Another value\",\n"
-                + "      \"oldValue\" : \"Some value\"\n"
-                + "    },\n"
-                + "    \"setting2\" : {\n"
-                + "      \"newValue\" : 300,\n"
-                + "      \"oldValue\" : 200\n"
-                + "    },\n"
-                + "    \"setting3\" : {\n"
-                + "      \"newValue\" : \"none\",\n"
-                + "      \"oldValue\" : true\n"
-                + "    }\n"
-                + "  }\n"
-                + "}";
+        String normalizedActualOutput = normalizeJson(outputStream.toString().trim());
+        String normalizedExpectedOutput = normalizeJson(jsonFormat.trim());
 
-        /*ObjectMapper objectMapper = new ObjectMapper();
+        assertEquals(normalizedExpectedOutput, normalizedActualOutput, "data does not match");
+    }
 
-        Map<String, Object> expectedJson = objectMapper.readValue(expectedJsonString,
-                new TypeReference<Map<String, Object>>() { });
+    @Test
+    public void testYamlToJson() throws Exception {
+        var filePath1 = Paths.get("src", "test", "resources", "filepath1.yaml").toString();
+        var filePath2 = Paths.get("src", "test", "resources", "filepath2.yaml").toString();
 
-        Map<String, Object> actualJson = objectMapper.readValue(outputStream.toString(),
-                new TypeReference<Map<String, Object>>() { });
-
-        assertEquals(expectedJson, actualJson);*/
-
-        //assertEquals(expectedJsonString.trim(), outputStream.toString().trim());
+        App app = new App();
+        app.setFormat("json");
+        app.setFilepath1(filePath1);
+        app.setFilepath2(filePath2);
+        app.call();
 
         String normalizedActualOutput = normalizeJson(outputStream.toString().trim());
-        String normalizedExpectedOutput = normalizeJson(expectedJsonString.trim());
+        String normalizedExpectedOutput = normalizeJson(jsonFormat.trim());
 
         assertEquals(normalizedExpectedOutput, normalizedActualOutput, "data does not match");
     }
@@ -228,5 +213,4 @@ public final class AppTest {
         Map<String, Object> map = objectMapper.readValue(json, new TypeReference<Map<String, Object>>() { });
         return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(map);
     }
-
 }
