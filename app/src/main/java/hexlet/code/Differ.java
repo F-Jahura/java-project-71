@@ -1,83 +1,52 @@
 package hexlet.code;
 
-import hexlet.code.formatters.FormatStyle;
-import hexlet.code.formatters.Json;
-import hexlet.code.formatters.Plain;
-import hexlet.code.formatters.Stylish;
-import org.apache.commons.io.FilenameUtils;
 
 import java.util.Map;
-import java.util.Objects;
+import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
+import java.util.Objects;
+import java.util.HashMap;
 
 public class Differ {
-    public static TreeMap<String, TreeMap<String, Object>> getDiff(Map<String, Object> data1,
-                                                                   Map<String, Object> data2) {
-        TreeMap<String, Object> removed = new TreeMap<>();
-        TreeMap<String, Object> added = new TreeMap<>();
-        TreeMap<String, Object> updated = new TreeMap<>();
-        TreeMap<String, Object> unchanged = new TreeMap<>();
+    public static TreeMap<String, Map<String, Object>> getDiff(Map<String, Object> data1,
+                                                                Map<String, Object> data2) {
+        Set<String> keys = new TreeSet<>();
+        keys.addAll(data1.keySet());
+        keys.addAll(data2.keySet());
 
-        for (Map.Entry<String, Object> entry : data1.entrySet()) {
-            if (!data2.containsKey(entry.getKey())) {
-                removed.put(entry.getKey(), entry.getValue());
+        TreeMap<String, Map<String, Object>> result = new TreeMap<>();
+
+        for (String key : keys) {
+            Map<String, Object> diffDetails = new HashMap<>();
+            Object value1 = data1.get(key);
+            Object value2 = data2.get(key);
+
+            if (!data2.containsKey(key)) {
+                diffDetails.put("status", "removed");
+                diffDetails.put("value", value1);
+            } else if (!data1.containsKey(key)) {
+                diffDetails.put("status", "added");
+                diffDetails.put("value", value2);
+            } else if (!Objects.equals(value1, value2)) {
+                diffDetails.put("status", "updated");
+                diffDetails.put("oldValue", value1);
+                diffDetails.put("newValue", value2);
+            } else {
+                diffDetails.put("status", "unchanged");
+                diffDetails.put("value", value1);
             }
 
-            if (data2.containsKey(entry.getKey()) && !Objects.equals(entry.getValue(), data2.get(entry.getKey()))) {
-                Object oldValue = entry.getValue();
-                Object newValue = data2.get(entry.getKey());
-                updated.put(entry.getKey(), createValueMap(oldValue, newValue));
-            }
-
-            if (data2.containsKey(entry.getKey()) && Objects.equals(entry.getValue(), data2.get(entry.getKey()))) {
-                unchanged.put(entry.getKey(), entry.getValue());
-            }
+            result.put(key, diffDetails);
         }
-
-        for (Map.Entry<String, Object> entry : data2.entrySet()) {
-            if (!data1.containsKey(entry.getKey())) {
-                added.put(entry.getKey(), entry.getValue());
-            }
-        }
-
-        TreeMap<String, TreeMap<String, Object>> result = new TreeMap<>();
-        result.put("removed", removed);
-        result.put("added", added);
-        result.put("updated", updated);
-        result.put("unchanged", unchanged);
 
         return result;
     }
 
-    private static TreeMap<String, Object> createValueMap(Object oldValue, Object newValue) {
+    public static TreeMap<String, Object> createValueMap(Object oldValue, Object newValue) {
         TreeMap<String, Object> valueMap = new TreeMap<>();
         valueMap.put("oldValue", oldValue);
         valueMap.put("newValue", newValue);
         return valueMap;
     }
-
-    public static String generate(String filePath1, String filePath2, String formatName) throws Exception {
-        String type = FilenameUtils.getExtension(filePath1 + filePath2);
-
-        Map<String, Object> data1 = Parser.parsing(filePath1, type);
-        Map<String, Object> data2 = Parser.parsing(filePath2, type);
-
-        FormatStyle formatStyle;
-        if ("plain".equalsIgnoreCase(formatName)) {
-            formatStyle = new Plain();
-        } else if ("stylish".equalsIgnoreCase(formatName)) {
-            formatStyle = new Stylish();
-        } else if ("json".equalsIgnoreCase(formatName)) {
-            formatStyle = new Json();
-        } else {
-            throw new UnsupportedOperationException("Unsupported format: " + formatName);
-        }
-
-        return formatStyle.format(data1, data2);
-    }
-
-    public static String generate(String filePath1, String  filePath2) throws Exception {
-        return generate(filePath1, filePath2, "stylish");
-    }
-
 }

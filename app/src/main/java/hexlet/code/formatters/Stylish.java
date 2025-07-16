@@ -1,36 +1,26 @@
 package hexlet.code.formatters;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import hexlet.code.Differ;
-
 import java.util.Map;
 import java.util.TreeMap;
 
 public final class Stylish implements FormatStyle {
     @Override
-    public String format(Map<String, Object> data1, Map<String, Object> data2) throws JsonProcessingException {
-        TreeMap<String, TreeMap<String, Object>> diff = Differ.getDiff(data1, data2);
-
-        TreeMap<String, String> allChanges = new TreeMap<>();
-
-        diff.forEach((changeType, changes) -> changes.forEach((key, value) -> {
-            String prefix = " ";
-            if ("updated".equals(changeType)) {
-                Map<String, Object> changeDetails = (Map<String, Object>) value;
-                allChanges.put(key, String.format("  - %s: %s\n  + %s: %s",
-                        key, changeDetails.get("oldValue"), key, changeDetails.get("newValue")));
-            } else {
-                if ("added".equals(changeType)) {
-                    prefix = "+";
-                } else if ("removed".equals(changeType)) {
-                    prefix = "-";
-                }
-                allChanges.put(key, String.format("  %s %s: %s", prefix, key, value));
-            }
-        }));
-
+    public String format(TreeMap<String, Map<String, Object>> dif) {
         StringBuilder builder = new StringBuilder("{\n");
-        allChanges.values().forEach(change -> builder.append(change).append("\n"));
+
+        dif.forEach((key, details) -> {
+            switch ((String) details.get("status")) {
+                case "updated" -> builder.append(String.format("  - %s: %s\n  + %s: %s\n",
+                        key, details.get("oldValue"), key, details.get("newValue")));
+                case "added" -> builder.append(String.format("  + %s: %s\n", key, details.get("value")));
+                case "removed" -> builder.append(String.format("  - %s: %s\n", key, details.get("value")));
+                case "unchanged" -> builder.append(String.format("    %s: %s\n", key, details.get("value")));
+                default -> {
+
+                }
+            }
+        });
+
         builder.append("}");
         return builder.toString();
     }
