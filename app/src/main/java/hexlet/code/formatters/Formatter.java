@@ -1,9 +1,4 @@
-package hexlet.code;
-
-import hexlet.code.formatters.FormatStyle;
-import hexlet.code.formatters.Json;
-import hexlet.code.formatters.Plain;
-import hexlet.code.formatters.Stylish;
+package hexlet.code.formatters;
 
 public class Formatter {
     public static FormatStyle selectFormatStyle(String formatName) {

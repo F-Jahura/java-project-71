@@ -1,8 +1,7 @@
-package hexlet.code.formatters;
+package hexlet.code;
 
-import hexlet.code.FindDiffer;
-import hexlet.code.Formatter;
-import hexlet.code.Parser;
+import hexlet.code.formatters.Formatter;
+import hexlet.code.formatters.FormatStyle;
 import org.apache.commons.io.FilenameUtils;
 
 import java.util.Map;
