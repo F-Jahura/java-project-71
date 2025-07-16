@@ -8,7 +8,7 @@ import java.util.TreeSet;
 import java.util.Objects;
 import java.util.HashMap;
 
-public class Differ {
+public class FindDiffer {
     public static TreeMap<String, Map<String, Object>> getDiff(Map<String, Object> data1,
                                                                 Map<String, Object> data2) {
         Set<String> keys = new TreeSet<>();

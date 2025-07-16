@@ -1,5 +1,6 @@
 package hexlet.code;
 
+import hexlet.code.formatters.Differ;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
@@ -42,7 +43,7 @@ public final class App implements Callable<Integer> {
     public Integer call() throws Exception {
         String effectiveFormat = format == null || format.isEmpty() ? "stylish" : format.trim();
 
-        var diff = Formatter.generate(filepath1, filepath2, effectiveFormat);
+        var diff = Differ.generate(filepath1, filepath2, effectiveFormat);
 
         System.out.println(diff);
 

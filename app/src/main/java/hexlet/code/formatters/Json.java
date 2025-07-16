@@ -3,7 +3,7 @@ package hexlet.code.formatters;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import hexlet.code.Differ;
+import hexlet.code.FindDiffer;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -23,7 +23,7 @@ public final class Json implements FormatStyle {
                 case "removed" ->
                         removed.put(key, details.get("value"));
                 case "updated" ->
-                        updated.put(key, Differ.createValueMap(details.get("oldValue"), details.get("newValue")));
+                        updated.put(key, FindDiffer.createValueMap(details.get("oldValue"), details.get("newValue")));
                 default -> {
 
                 }
