@@ -16,7 +16,7 @@ public final class Stylish implements FormatStyle {
                 case "removed" -> builder.append(String.format("  - %s: %s\n", key, details.get("value")));
                 case "unchanged" -> builder.append(String.format("    %s: %s\n", key, details.get("value")));
                 default -> {
-
+                    throw new RuntimeException("Error value");
                 }
             }
         });

@@ -27,8 +27,9 @@ public final class Plain implements FormatStyle {
                         formatValue(details.get("value"))));
                 case "updated" -> builder.append(String.format("Property '%s' was updated. From %s to %s\n",
                         key, formatValue(details.get("oldValue")), formatValue(details.get("newValue"))));
+                case "unchanged" -> builder.append("");
                 default -> {
-
+                    throw new RuntimeException("Error value");
                 }
             }
         });
