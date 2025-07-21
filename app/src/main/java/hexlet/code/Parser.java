@@ -6,7 +6,10 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 import java.util.Map;
 
-public class Parser {
+public final class Parser {
+    private Parser() {
+    }
+    @SuppressWarnings("java:S112")
     public static Map<String, Object> parsing(String content, String type) throws Exception {
         ObjectMapper objectMapper = switch (type) {
             case "json" -> new ObjectMapper();

@@ -6,7 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-public final class DifferTest {
+final class DifferTest {
     private final String pathToStylish = "src/test/resources/stylish";
     private final String pathToPlain = "src/test/resources/plain";
     private final String pathToJson = "src/test/resources/json";
