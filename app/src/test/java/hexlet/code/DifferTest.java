@@ -6,7 +6,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class DifferTest {
     private final String pathToStylish = "src/test/resources/stylish";
     private final String pathToPlain = "src/test/resources/plain";
@@ -15,12 +14,14 @@ public final class DifferTest {
     private final String pathToJsonFile2 = "src/test/resources/filepath2.json";
     private final String pathToYamlFile1 = "src/test/resources/filepath1.yaml";
     private final String pathToYamlFile2 = "src/test/resources/filepath2.yaml";
+
     @Test
-    void testDefaultFormatJson() throws Exception {
+    public void testDefaultFormatJson() throws Exception {
         var defaultPath = Paths.get(pathToStylish).toAbsolutePath().normalize();
 
         var expected = Files.readString(defaultPath);
         var expectedNormalized = expected.replaceAll("\\s+", " ").trim();
+
         var actual = Differ.generate(pathToJsonFile1, pathToJsonFile2);
         String actualNormalized = actual.replaceAll("\\s+", " ").trim();
 
@@ -28,8 +29,9 @@ public final class DifferTest {
     }
 
     @Test
-    void testDefaultFormatYaml() throws Exception {
+    public void testDefaultFormatYaml() throws Exception {
         var defaultPath = Paths.get(pathToStylish).toAbsolutePath().normalize();
+
         var expected = Files.readString(defaultPath);
         var expectedNormalized = expected.replaceAll("\\s+", " ").trim();
 
@@ -40,7 +42,7 @@ public final class DifferTest {
     }
 
     @Test
-    void testJsonToStylish() throws Exception {
+    public void testJsonToStylish() throws Exception {
         var stylishPath = Paths.get(pathToStylish).toAbsolutePath().normalize();
 
         var expected = Files.readString(stylishPath);
@@ -53,7 +55,7 @@ public final class DifferTest {
     }
 
     @Test
-    void testYamlToStylish() throws Exception {
+    public void testYamlToStylish() throws Exception {
         var stylishPath = Paths.get(pathToStylish).toAbsolutePath().normalize();
 
         var expected = Files.readString(stylishPath);
@@ -66,7 +68,7 @@ public final class DifferTest {
     }
 
     @Test
-    void tesJsonToPlain() throws Exception {
+    public void tesJsonToPlain() throws Exception {
         var plainPath = Paths.get(pathToPlain).toAbsolutePath().normalize();
 
         var expected = Files.readString(plainPath);
@@ -79,7 +81,7 @@ public final class DifferTest {
     }
 
     @Test
-    void tesYamlToPlain() throws Exception {
+    public void tesYamlToPlain() throws Exception {
         var plainPath = Paths.get(pathToPlain).toAbsolutePath().normalize();
 
         var expected = Files.readString(plainPath);
@@ -92,7 +94,7 @@ public final class DifferTest {
     }
 
     @Test
-    void testJsonToJson() throws Exception {
+    public void testJsonToJson() throws Exception {
         var jsonPath = Paths.get(pathToJson).toAbsolutePath().normalize();
 
         var expected = Files.readString(jsonPath);
@@ -105,7 +107,7 @@ public final class DifferTest {
     }
 
     @Test
-    void testYamlToJson() throws Exception {
+    public void testYamlToJson() throws Exception {
         var jsonPath = Paths.get(pathToJson).toAbsolutePath().normalize();
 
         var expected = Files.readString(jsonPath);

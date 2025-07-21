@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public final class Plain implements FormatStyle {
-    public static String formatValue(Object value) {
+    private static String formatValue(Object value) {
         if (value instanceof Map || value instanceof List) {
             return "[complex value]";
         }
@@ -20,16 +20,16 @@ public final class Plain implements FormatStyle {
         StringBuilder builder = new StringBuilder();
 
         dif.forEach((key, details) -> {
-            String status = (String) details.get("status");
-            switch (status) {
-                case "removed" -> builder.append(String.format("Property '%s' was removed%n", key));
-                case "added" -> builder.append(String.format("Property '%s' was added with value: %s%n", key,
+            switch ((String) details.get("status")) {
+                case "removed" -> builder.append(String.format("Property '%s' was removed\n", key));
+                case "added" -> builder.append(String.format("Property '%s' was added with value: %s\n", key,
                         formatValue(details.get("value"))));
-                case "updated" -> builder.append(String.format("Property '%s' was updated. From %s to %s%n",
+                case "updated" -> builder.append(String.format("Property '%s' was updated. From %s to %s\n",
                         key, formatValue(details.get("oldValue")), formatValue(details.get("newValue"))));
                 case "unchanged" -> builder.append("");
-                default ->
-                        throw new RuntimeException("Unknown status" + status);
+                default -> {
+                    throw new RuntimeException("Error value");
+                }
             }
         });
 

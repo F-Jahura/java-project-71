@@ -1,10 +1,6 @@
 package hexlet.code.formatters;
 
-public final class Formatter {
-
-    private Formatter() {
-    }
-
+public class Formatter {
     public static FormatStyle selectFormatStyle(String formatName) {
         switch (formatName.toLowerCase()) {
             case "plain":
