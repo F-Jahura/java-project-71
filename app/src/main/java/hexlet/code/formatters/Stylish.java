@@ -4,20 +4,20 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public final class Stylish implements FormatStyle {
-    private final String value = "value";
-    private final String status = "status";
+    private static final String VALUE = "value";
+    private static final String STATUS = "status";
     @Override
     @SuppressWarnings("java:S112")
     public String format(TreeMap<String, Map<String, Object>> dif) {
         StringBuilder builder = new StringBuilder("{\n");
 
         dif.forEach((key, details) -> {
-            switch ((String) details.get(status)) {
+            switch ((String) details.get(STATUS)) {
                 case "updated" -> builder.append(String.format("  - %s: %s%n  + %s: %s%n",
                         key, details.get("oldValue"), key, details.get("newValue")));
-                case "added" -> builder.append(String.format("  + %s: %s%n", key, details.get(value)));
-                case "removed" -> builder.append(String.format("  - %s: %s%n", key, details.get(value)));
-                case "unchanged" -> builder.append(String.format("    %s: %s%n", key, details.get(value)));
+                case "added" -> builder.append(String.format("  + %s: %s%n", key, details.get(VALUE)));
+                case "removed" -> builder.append(String.format("  - %s: %s%n", key, details.get(VALUE)));
+                case "unchanged" -> builder.append(String.format("    %s: %s%n", key, details.get(VALUE)));
                 default ->
                     throw new RuntimeException("Error value");
             }

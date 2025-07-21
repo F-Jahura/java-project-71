@@ -16,6 +16,7 @@ public final class Plain implements FormatStyle {
     }
 
     @Override
+    @SuppressWarnings("java:S112")
     public String format(TreeMap<String, Map<String, Object>> dif) {
         StringBuilder builder = new StringBuilder();
 

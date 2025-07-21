@@ -25,16 +25,35 @@ tasks.jar {
     }
 }
 
-
-dependencies {  // NOSONAR
+/*dependencies {
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
-    implementation("org.apache.commons:commons-lang3:3.17.0") // NOSONAR
-    implementation("info.picocli:picocli:4.7.7") // NOSONAR
-    annotationProcessor("info.picocli:picocli-codegen:4.7.7") // NOSONAR
-    implementation ("com.fasterxml.jackson.core:jackson-databind:2.13.4.2") // NOSONAR
+    implementation("org.apache.commons:commons-lang3:3.17.0")
+    implementation("info.picocli:picocli:4.7.7")
+    annotationProcessor("info.picocli:picocli-codegen:4.7.7")
+    implementation ("com.fasterxml.jackson.core:jackson-databind:2.13.4.2")
     implementation ("commons-io:commons-io:2.14.0") // NOSONAR
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.13.3") // NOSONAR
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.13.3")
+}*/
+
+val junitBomVersion = "5.9.1"
+val commonsLangVersion = "3.17.0"
+val picocliVersion = "4.7.7"
+val jacksonDatabindVersion = "2.13.4.2"
+val commonsIoVersion = "2.14.0"
+val jacksonDataformatYamlVersion = "2.13.3"
+
+dependencies {
+    testImplementation(platform("org.junit:junit-bom:$junitBomVersion"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
+
+    implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonDatabindVersion")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:$jacksonDataformatYamlVersion")
+    implementation("commons-io:commons-io:$commonsIoVersion")
+    implementation("info.picocli:picocli:$picocliVersion")
+    implementation("org.apache.commons:commons-lang3:$commonsLangVersion")
+
+    annotationProcessor("info.picocli:picocli-codegen:$picocliVersion")
 }
 
 tasks.test {
@@ -62,11 +81,12 @@ tasks.named("check") {
     dependsOn(myCheckstyleTest)
 }
 
-tasks.register("taskName") { // NOSONAR
+
+/*tasks.register("taskName") {
     doLast {
         println("This is a new custom task!")
     }
-}
+}*/
 
 tasks.jacocoTestReport {
     reports { xml.required.set(true)

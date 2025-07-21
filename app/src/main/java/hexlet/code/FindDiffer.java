@@ -8,9 +8,12 @@ import java.util.Objects;
 import java.util.HashMap;
 
 public final class FindDiffer {
+    private static final String VALUE = "value";
+    private static final String STATUS = "status";
 
     private FindDiffer() {
     }
+    @SuppressWarnings("java:S1319")
     public static TreeMap<String, Map<String, Object>> getDiff(Map<String, Object> data1,
                                                                Map<String, Object> data2) {
         Set<String> keys = new TreeSet<>();
@@ -25,18 +28,18 @@ public final class FindDiffer {
             Object value2 = data2.get(key);
 
             if (!data2.containsKey(key)) {
-                diffDetails.put("status", "removed");
-                diffDetails.put("value", value1);
+                diffDetails.put(STATUS, "removed");
+                diffDetails.put(VALUE, value1);
             } else if (!data1.containsKey(key)) {
-                diffDetails.put("status", "added");
-                diffDetails.put("value", value2);
+                diffDetails.put(STATUS, "added");
+                diffDetails.put(VALUE, value2);
             } else if (!Objects.equals(value1, value2)) {
-                diffDetails.put("status", "updated");
+                diffDetails.put(STATUS, "updated");
                 diffDetails.put("oldValue", value1);
                 diffDetails.put("newValue", value2);
             } else {
-                diffDetails.put("status", "unchanged");
-                diffDetails.put("value", value1);
+                diffDetails.put(STATUS, "unchanged");
+                diffDetails.put(VALUE, value1);
             }
 
             result.put(key, diffDetails);
@@ -44,11 +47,4 @@ public final class FindDiffer {
 
         return result;
     }
-
-    /*public static TreeMap<String, Object> createValueMap(Object oldValue, Object newValue) {
-        TreeMap<String, Object> valueMap = new TreeMap<>();
-        valueMap.put("oldValue", oldValue);
-        valueMap.put("newValue", newValue);
-        return valueMap;
-    }*/
 }
