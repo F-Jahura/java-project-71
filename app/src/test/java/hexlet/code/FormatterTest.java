@@ -20,7 +20,7 @@ public class FormatterTest {
     private static final FormatStyle PLAIN = new Plain();
     private static final FormatStyle JSON = new Json();
     @Test
-    public void testRemovedStylish() throws JsonProcessingException {
+    void testRemovedStylish() throws JsonProcessingException {
         TreeMap<String, Map<String, Object>> dif = new TreeMap<>();
         Map<String, Object> details = new HashMap<>();
         details.put("status", "removed");
@@ -32,7 +32,7 @@ public class FormatterTest {
     }
 
     @Test
-    public void testAddedStylish() throws JsonProcessingException {
+    void testAddedStylish() throws JsonProcessingException {
         TreeMap<String, Map<String, Object>> dif = new TreeMap<>();
         Map<String, Object> details = new HashMap<>();
         details.put("status", "added");
@@ -44,7 +44,7 @@ public class FormatterTest {
     }
 
     @Test
-    public void testUnknownStatus() {
+    void testUnknownStatus() {
         TreeMap<String, Map<String, Object>> dif = new TreeMap<>();
         Map<String, Object> details = new HashMap<>();
         details.put("status", "unknown");
@@ -54,7 +54,7 @@ public class FormatterTest {
     }
 
     @Test
-    public void testRemovedPlain() throws JsonProcessingException {
+    void testRemovedPlain() throws JsonProcessingException {
         TreeMap<String, Map<String, Object>> dif = new TreeMap<>();
         Map<String, Object> details = new HashMap<>();
         details.put("status", "removed");
@@ -67,7 +67,7 @@ public class FormatterTest {
     }
 
     @Test
-    public void testAddedPlain() throws JsonProcessingException {
+    void testAddedPlain() throws JsonProcessingException {
         TreeMap<String, Map<String, Object>> dif = new TreeMap<>();
         Map<String, Object> details = new HashMap<>();
         details.put("status", "added");
@@ -80,7 +80,7 @@ public class FormatterTest {
     }
 
     @Test
-    public void testFormatValidData() throws Exception {
+    void testFormatValidData() throws Exception {
         TreeMap<String, Map<String, Object>> diff = new TreeMap<>();
         Map<String, Object> details = Map.of("status", "updated", "oldValue", "old", "newValue", "new");
         diff.put("someKey", details);
