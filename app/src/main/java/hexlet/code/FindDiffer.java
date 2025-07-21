@@ -20,7 +20,6 @@ public final class FindDiffer {
     private FindDiffer() {
     }
 
-    @SuppressWarnings("squid:S125")
     public static TreeMap<String, Map<String, Object>> getDiff(Map<String, Object> data1,
                                                                 Map<String, Object> data2) {
         Set<String> keys = new TreeSet<>();

@@ -16,7 +16,6 @@ public final class Plain implements FormatStyle {
     }
 
     @Override
-    @SuppressWarnings("squid:S125") // Данный метод принят в тестировании и поддерживает необходимые случаи
     public String format(TreeMap<String, Map<String, Object>> dif) {
         StringBuilder builder = new StringBuilder();
 

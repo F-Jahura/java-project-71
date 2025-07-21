@@ -14,8 +14,8 @@ import java.util.logging.Logger;
 public final class App implements Callable<Integer> {
     private static final Logger LOGGER = Logger.getLogger(App.class.getName());
     public static void main(String[] args) {
-        int exitCode = new CommandLine(new App()).execute(args); //NOSONAR
-        System.exit(exitCode); //NOSONAR
+        int exitCode = new CommandLine(new App()).execute(args);
+        System.exit(exitCode);
     }
 
     @Option(names = { "-f", "--format" }, paramLabel = "format",
@@ -29,7 +29,6 @@ public final class App implements Callable<Integer> {
     private String filepath2;
 
     @Override
-    @SuppressWarnings("squid:S125")
     public Integer call() throws Exception {
         String effectiveFormat = format == null || format.isEmpty() ? "stylish" : format.trim();
 
