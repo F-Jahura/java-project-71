@@ -6,14 +6,16 @@ import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
 import java.util.concurrent.Callable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Command(name = "gendiff", mixinStandardHelpOptions = true,
         description = "Compares two configuration files and shows a difference.")
 public final class App implements Callable<Integer> {
-    public static void main(String[] args) throws Exception {
-        //System.out.printf("Hello World!\n");
-        int exitCode = new CommandLine(new App()).execute(args);
-        System.exit(exitCode);
+    private static final Logger LOGGER = Logger.getLogger(App.class.getName());
+    public static void main(String[] args) {
+        int exitCode = new CommandLine(new App()).execute(args); //NOSONAR
+        System.exit(exitCode); //NOSONAR
     }
 
     @Option(names = { "-f", "--format" }, paramLabel = "format",
@@ -26,25 +28,14 @@ public final class App implements Callable<Integer> {
     @Parameters(index = "1", paramLabel = "filepath2", description = "path to second file")
     private String filepath2;
 
-    public void setFormat(String format) {
-        this.format = format;
-    }
-
-    public void setFilepath1(String filepath1) {
-        this.filepath1 = filepath1;
-    }
-
-    public void setFilepath2(String filepath2) {
-        this.filepath2 = filepath2;
-    }
-
     @Override
+    @SuppressWarnings("squid:S125")
     public Integer call() throws Exception {
         String effectiveFormat = format == null || format.isEmpty() ? "stylish" : format.trim();
 
         var diff = Differ.generate(filepath1, filepath2, effectiveFormat);
 
-        System.out.println(diff);
+        LOGGER.log(Level.INFO, "Diff output: {0}", diff);
 
         return 0;
     }

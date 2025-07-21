@@ -9,10 +9,10 @@ import java.util.TreeMap;
 
 public final class Json implements FormatStyle {
     @Override
+    @SuppressWarnings("squid:S125")
     public String format(TreeMap<String, Map<String, Object>> dif) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(dif);
     }
 }
-

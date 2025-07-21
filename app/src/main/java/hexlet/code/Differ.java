@@ -9,7 +9,12 @@ import java.nio.file.Files;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class Differ {
+public final class Differ {
+
+    private Differ() {
+    }
+
+    @SuppressWarnings("squid:S125")  // Данный метод принят в тестировании и поддерживает необходимые случаи
     public static String generate(String filePath1, String filePath2, String formatName) throws Exception {
         String type1 = FilenameUtils.getExtension(filePath1);
         String type2 = FilenameUtils.getExtension(filePath2);
