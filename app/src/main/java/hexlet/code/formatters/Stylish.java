@@ -7,20 +7,20 @@ public final class Stylish implements FormatStyle {
     @Override
     public String format(TreeMap<String, Map<String, Object>> dif) {
         StringBuilder builder = new StringBuilder("{\n");
+        //builder.append("%n");
 
         dif.forEach((key, details) -> {
             switch ((String) details.get("status")) {
-                case "updated" -> builder.append(String.format("  - %s: %s\n  + %s: %s\n",
+                case "updated" -> builder.append(String.format("  - %s: %s%n  + %s: %s%n",
                         key, details.get("oldValue"), key, details.get("newValue")));
-                case "added" -> builder.append(String.format("  + %s: %s\n", key, details.get("value")));
-                case "removed" -> builder.append(String.format("  - %s: %s\n", key, details.get("value")));
-                case "unchanged" -> builder.append(String.format("    %s: %s\n", key, details.get("value")));
+                case "added" -> builder.append(String.format("  + %s: %s%n", key, details.get("value")));
+                case "removed" -> builder.append(String.format("  - %s: %s%n", key, details.get("value")));
+                case "unchanged" -> builder.append(String.format("    %s: %s%n", key, details.get("value")));
                 default -> {
                     throw new RuntimeException("Error value");
                 }
             }
         });
-
         builder.append("}");
         return builder.toString();
     }

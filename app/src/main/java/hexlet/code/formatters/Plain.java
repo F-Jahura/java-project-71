@@ -21,10 +21,10 @@ public final class Plain implements FormatStyle {
 
         dif.forEach((key, details) -> {
             switch ((String) details.get("status")) {
-                case "removed" -> builder.append(String.format("Property '%s' was removed\n", key));
-                case "added" -> builder.append(String.format("Property '%s' was added with value: %s\n", key,
+                case "removed" -> builder.append(String.format("Property '%s' was removed%n", key));
+                case "added" -> builder.append(String.format("Property '%s' was added with value: %s%n", key,
                         formatValue(details.get("value"))));
-                case "updated" -> builder.append(String.format("Property '%s' was updated. From %s to %s\n",
+                case "updated" -> builder.append(String.format("Property '%s' was updated. From %s to %s%n",
                         key, formatValue(details.get("oldValue")), formatValue(details.get("newValue"))));
                 case "unchanged" -> builder.append("");
                 default -> {

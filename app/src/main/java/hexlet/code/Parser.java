@@ -7,7 +7,7 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import java.util.Map;
 
 public class Parser {
-    public static Map<String, Object> parsing(String content /*filepath*/, String type) throws Exception {
+    public static Map<String, Object> parsing(String content, String type) throws Exception {
         ObjectMapper objectMapper = switch (type) {
             case "json" -> new ObjectMapper();
             case "yaml", "yml" -> new ObjectMapper(new YAMLFactory());

@@ -7,7 +7,10 @@ import java.util.TreeSet;
 import java.util.Objects;
 import java.util.HashMap;
 
-public class FindDiffer {
+public final class FindDiffer {
+
+    private FindDiffer() {
+    }
     public static TreeMap<String, Map<String, Object>> getDiff(Map<String, Object> data1,
                                                                Map<String, Object> data2) {
         Set<String> keys = new TreeSet<>();
@@ -42,10 +45,10 @@ public class FindDiffer {
         return result;
     }
 
-    public static TreeMap<String, Object> createValueMap(Object oldValue, Object newValue) {
+    /*public static TreeMap<String, Object> createValueMap(Object oldValue, Object newValue) {
         TreeMap<String, Object> valueMap = new TreeMap<>();
         valueMap.put("oldValue", oldValue);
         valueMap.put("newValue", newValue);
         return valueMap;
-    }
+    }*/
 }

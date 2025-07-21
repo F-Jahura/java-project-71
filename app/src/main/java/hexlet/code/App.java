@@ -27,7 +27,7 @@ public final class App implements Callable<Integer> {
 
 
     @Override
-    @SuppressWarnings("squid:S1199")
+    @SuppressWarnings("java:S106")
     public Integer call() throws Exception {
         String effectiveFormat = format == null || format.isEmpty() ? "stylish" : format.trim();
 
