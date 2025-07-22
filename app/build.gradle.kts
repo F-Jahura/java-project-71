@@ -70,9 +70,22 @@ tasks.named("check") {
     dependsOn(myCheckstyleTest)
 }
 
+jacoco {
+    toolVersion = "0.8.12"
+}
+
 tasks.jacocoTestReport {
-    reports { xml.required.set(true)
+    dependsOn(tasks.test)
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+        csv.required.set(false)
     }
+}
+
+
+tasks.withType<Test> {
+    finalizedBy(tasks.jacocoTestReport)
 }
 
 sonar {
@@ -80,5 +93,10 @@ sonar {
         property("sonar.projectKey", "F-Jahura_java-project-71")
         property("sonar.organization", "f-jahura")
         property("sonar.host.url", "https://sonarcloud.io")
+        property ("sonar.login", "${System.getenv("SONAR_TOKEN")}")
+        property("sonar.java.binaries", "${buildDir}/classes/java/main")
+        property ("sonar.java.coveragePlugin", "jacoco")
+        property ("sonar.coverage.jacoco.xmlReportPaths", "${buildDir}/reports/jacoco/test/jacocoTestReport.xml")
     }
 }
+

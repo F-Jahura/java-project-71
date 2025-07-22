@@ -4,14 +4,17 @@ clean:
 build:
 	make -C app build
 
-run:
-	make -C app run
-
 test:
 	make -C app test
 
 report:
 	make -C app report
+
+sonar:
+	make -C app sonar
+
+run:
+	make -C app run
 
 lint:
 	make -C app lint
