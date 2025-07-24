@@ -21,7 +21,8 @@ public final class Plain implements FormatStyle {
         StringBuilder builder = new StringBuilder();
 
         dif.forEach((key, details) -> {
-            switch ((String) details.get("status")) {
+            String status = (String) details.get("status");
+            switch (status) {
                 case "removed" -> builder.append(String.format("Property '%s' was removed%n", key));
                 case "added" -> builder.append(String.format("Property '%s' was added with value: %s%n", key,
                         formatValue(details.get("value"))));
@@ -29,7 +30,7 @@ public final class Plain implements FormatStyle {
                         key, formatValue(details.get("oldValue")), formatValue(details.get("newValue"))));
                 case "unchanged" -> builder.append("");
                 default ->
-                    throw new RuntimeException("Error value");
+                    throw new RuntimeException("Error value" + status);
             }
         });
 

@@ -12,14 +12,15 @@ public final class Stylish implements FormatStyle {
         StringBuilder builder = new StringBuilder("{\n");
 
         dif.forEach((key, details) -> {
-            switch ((String) details.get(STATUS)) {
+            String status = (String) details.get(STATUS);
+            switch (status) {
                 case "updated" -> builder.append(String.format("  - %s: %s%n  + %s: %s%n",
                         key, details.get("oldValue"), key, details.get("newValue")));
                 case "added" -> builder.append(String.format("  + %s: %s%n", key, details.get(VALUE)));
                 case "removed" -> builder.append(String.format("  - %s: %s%n", key, details.get(VALUE)));
                 case "unchanged" -> builder.append(String.format("    %s: %s%n", key, details.get(VALUE)));
                 default ->
-                    throw new RuntimeException("Error value");
+                    throw new RuntimeException("Error value" + status);
             }
         });
         builder.append("}");

@@ -20,10 +20,10 @@ final class DifferTest {
         var defaultPath = Paths.get(pathToStylish).toAbsolutePath().normalize();
 
         var expected = Files.readString(defaultPath);
-        var expectedNormalized = expected.replaceAll("\\s+", " ").trim();
+        var expectedNormalized = expected.replaceAll("\\s+", " ");
 
         var actual = Differ.generate(pathToJsonFile1, pathToJsonFile2);
-        String actualNormalized = actual.replaceAll("\\s+", " ").trim();
+        String actualNormalized = actual.replaceAll("\\s+", " ");
 
         assertEquals(expectedNormalized, actualNormalized);
     }
@@ -33,10 +33,10 @@ final class DifferTest {
         var defaultPath = Paths.get(pathToStylish).toAbsolutePath().normalize();
 
         var expected = Files.readString(defaultPath);
-        var expectedNormalized = expected.replaceAll("\\s+", " ").trim();
+        var expectedNormalized = expected.replaceAll("\\s+", " ");
 
         var actual = Differ.generate(pathToYamlFile1, pathToYamlFile2);
-        String actualNormalized = actual.replaceAll("\\s+", " ").trim();
+        String actualNormalized = actual.replaceAll("\\s+", " ");
 
         assertEquals(expectedNormalized, actualNormalized);
     }
@@ -46,10 +46,10 @@ final class DifferTest {
         var stylishPath = Paths.get(pathToStylish).toAbsolutePath().normalize();
 
         var expected = Files.readString(stylishPath);
-        var expectedNormalized = expected.replaceAll("\\s+", " ").trim();
+        var expectedNormalized = expected.replaceAll("\\s+", " ");
 
         var actual = Differ.generate(pathToJsonFile1, pathToJsonFile2, "stylish");
-        String actualNormalized = actual.replaceAll("\\s+", " ").trim();
+        String actualNormalized = actual.replaceAll("\\s+", " ");
 
         assertEquals(expectedNormalized, actualNormalized);
     }
@@ -59,10 +59,10 @@ final class DifferTest {
         var stylishPath = Paths.get(pathToStylish).toAbsolutePath().normalize();
 
         var expected = Files.readString(stylishPath);
-        var expectedNormalized = expected.replaceAll("\\s+", " ").trim();
+        var expectedNormalized = expected.replaceAll("\\s+", " ");
 
         var actual = Differ.generate(pathToYamlFile1, pathToYamlFile2, "stylish");
-        String actualNormalized = actual.replaceAll("\\s+", " ").trim();
+        String actualNormalized = actual.replaceAll("\\s+", " ");
 
         assertEquals(expectedNormalized, actualNormalized);
     }
@@ -72,10 +72,10 @@ final class DifferTest {
         var plainPath = Paths.get(pathToPlain).toAbsolutePath().normalize();
 
         var expected = Files.readString(plainPath);
-        var expectedNormalized = expected.replaceAll("\\s+", " ").trim();
+        var expectedNormalized = expected.replaceAll("\\s+", " ");
 
         var actual = Differ.generate(pathToJsonFile1, pathToJsonFile2, "plain");
-        String actualNormalized = actual.replaceAll("\\s+", " ").trim();
+        String actualNormalized = actual.replaceAll("\\s+", " ");
 
         assertEquals(expectedNormalized, actualNormalized);
     }
@@ -85,10 +85,10 @@ final class DifferTest {
         var plainPath = Paths.get(pathToPlain).toAbsolutePath().normalize();
 
         var expected = Files.readString(plainPath);
-        var expectedNormalized = expected.replaceAll("\\s+", " ").trim();
+        var expectedNormalized = expected.replaceAll("\\s+", " ");
 
         var actual = Differ.generate(pathToYamlFile1, pathToYamlFile2, "plain");
-        String actualNormalized = actual.replaceAll("\\s+", " ").trim();
+        String actualNormalized = actual.replaceAll("\\s+", " ");
 
         assertEquals(expectedNormalized, actualNormalized);
     }
@@ -98,10 +98,10 @@ final class DifferTest {
         var jsonPath = Paths.get(pathToJson).toAbsolutePath().normalize();
 
         var expected = Files.readString(jsonPath);
-        var expectedNormalized = expected.replaceAll("\\s+", " ").trim();
+        var expectedNormalized = expected.replaceAll("\\s+", " ");
 
         var actual = Differ.generate(pathToJsonFile1, pathToJsonFile2, "json");
-        String actualNormalized = actual.replaceAll("\\s+", " ").trim();
+        String actualNormalized = actual.replaceAll("\\s+", " ");
 
         assertEquals(expectedNormalized, actualNormalized);
     }
@@ -111,10 +111,10 @@ final class DifferTest {
         var jsonPath = Paths.get(pathToJson).toAbsolutePath().normalize();
 
         var expected = Files.readString(jsonPath);
-        var expectedNormalized = expected.replaceAll("\\s+", " ").trim();
+        var expectedNormalized = expected.replaceAll("\\s+", " ");
 
         var actual = Differ.generate(pathToYamlFile1, pathToYamlFile2, "json");
-        String actualNormalized = actual.replaceAll("\\s+", " ").trim();
+        String actualNormalized = actual.replaceAll("\\s+", " ");
 
         assertEquals(expectedNormalized, actualNormalized);
     }
