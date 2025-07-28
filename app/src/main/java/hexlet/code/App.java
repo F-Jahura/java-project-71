@@ -11,8 +11,8 @@ import java.util.concurrent.Callable;
         description = "Compares two configuration files and shows a difference.")
 public final class App implements Callable<Integer> {
     public static void main(String[] args) {
-        int exitCode = new CommandLine(new App()).execute(args); // NOSONAR
-        System.exit(exitCode); // NOSONAR
+        int exitCode = new CommandLine(new App()).execute(args);
+        System.exit(exitCode);
     }
 
     @Option(names = { "-f", "--format" }, paramLabel = "format",
